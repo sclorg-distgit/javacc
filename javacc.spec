@@ -34,7 +34,7 @@
 
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        5.0
-Release:        10.12%{?dist}
+Release:        10.13%{?dist}
 Epoch:          0
 Summary:        A parser/scanner generator for java
 License:        BSD
@@ -48,7 +48,7 @@ BuildRequires:  %{?scl_prefix_java_common}javapackages-tools
 BuildRequires:  %{?scl_prefix_java_common}ant
 BuildRequires:  %{?scl_prefix_java_common}ant-junit
 BuildRequires:  %{?scl_prefix_java_common}junit
-BuildRequires:  maven30-javacc
+BuildRequires:  %{?scl_prefix}javacc
 
 BuildArch:      noarch
 
@@ -62,7 +62,7 @@ a tool called JJTree included with JavaCC), actions, debugging, etc.
 
 %package manual
 Summary:        Manual for %{pkg_name}
-Requires:       maven30-runtime
+Requires:       %{?scl_prefix}runtime
 
 %description manual
 Manual for %{pkg_name}.
@@ -82,7 +82,7 @@ This package contains the API documentation for %{pkg_name}.
 
 %prep
 %setup -q -n %{pkg_name}
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 
 %patch0 -p1
@@ -99,7 +99,7 @@ sed -i 's/source="1.4"/source="1.5"/g' src/org/javacc/{parser,jjdoc,jjtree}/buil
 %{?scl:EOF}
 
 %build
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 # Use the bootstrap javacc.jar to generate some required
 # source java files. After these source files are generated we
@@ -111,7 +111,7 @@ ant jar javadoc
 %{?scl:EOF}
 
 %install
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 # jar
 install -Dpm 644 bin/lib/%{pkg_name}.jar %{buildroot}%{_javadir}/%{pkg_name}.jar
@@ -147,6 +147,9 @@ install -Dpm 644 pom.xml %{buildroot}/%{_mavenpomdir}/JPP-%{pkg_name}.pom
 %{_javadocdir}/%{name}
 
 %changelog
+* Mon Jan 11 2016 Michal Srb <msrb@redhat.com> - 0:5.0-10.13
+- maven33 rebuild #2
+
 * Sat Jan 09 2016 Michal Srb <msrb@redhat.com> - 0:5.0-10.12
 - maven33 rebuild
 
