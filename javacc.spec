@@ -34,7 +34,7 @@
 
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        5.0
-Release:        10.13%{?dist}
+Release:        10.14%{?dist}
 Epoch:          0
 Summary:        A parser/scanner generator for java
 License:        BSD
@@ -147,6 +147,9 @@ install -Dpm 644 pom.xml %{buildroot}/%{_mavenpomdir}/JPP-%{pkg_name}.pom
 %{_javadocdir}/%{name}
 
 %changelog
+* Mon Feb 08 2016 Michal Srb <msrb@redhat.com> - 0:5.0-10.14
+- Fix BR on maven-local & co.
+
 * Mon Jan 11 2016 Michal Srb <msrb@redhat.com> - 0:5.0-10.13
 - maven33 rebuild #2
 
